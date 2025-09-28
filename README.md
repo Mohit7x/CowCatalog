@@ -29,7 +29,7 @@
 - On save, data is stored locally and added instantly to the list.
 
 ## CA-04: Cow Detail
--->Displays:
+- Displays:
 - Ear Tag, Sex, Pen, Status, Weight
 - Basic timeline of recent events:
 - Weight Check
