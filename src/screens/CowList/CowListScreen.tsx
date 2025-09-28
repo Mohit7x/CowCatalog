@@ -7,18 +7,16 @@ import { useAppSelector } from '../../redux/store';
 import Images from '../../constants/images';
 import { COLOR } from '../../constants/color';
 import HeaderComponent from '../../components/HeaderComponent';
+import FilterModal from '../../components/FilterModal';
 
 const { width, height } = Dimensions.get('window');
 
 export default function CowListScreen() {
     const navigation = useNavigation();
     const cows = useAppSelector(state => state.cows.cows);
-    console.log('Loaded cows:------->', cows);
-
-
+    const { status, pen } = useAppSelector(state => state.cows.filters);
     const [query, setQuery] = useState('');
-    const [status, setStatus] = useState<string | undefined>();
-    const [pen, setPen] = useState<string | undefined>();
+    const [filterModalVisible, setFilterModalVisible] = useState(false);
 
     const filtered = useMemo(() => {
         return cows.filter(c => {
@@ -27,7 +25,10 @@ export default function CowListScreen() {
             if (pen && c.pen !== pen) return false;
             return true;
         });
+
     }, [cows, query, status, pen]);
+
+
 
 
     const showCowDetail = (item: any) => { navigation.navigate('CowDetail', { cowId: item?.id }); }
@@ -65,7 +66,7 @@ export default function CowListScreen() {
                 <ItemViewOption iconSource={Images.sex} label={'Sex:'} title={item.sex} />
                 <ItemViewOption iconSource={Images.pen} label={'Pen:'} title={item.pen} />
                 <ItemViewOption iconSource={getStatusImage(item.status)} label={'Status:'} title={item.status} />
-                <ItemViewOption iconSource={Images.weight} label={'Weight:'} title={item.weight} />
+                <ItemViewOption iconSource={Images.weight} label={'Weight:'} title={item?.weight === undefined ? 'N/A' : item?.weight} />
             </View>
             <Image source={Images.cow_bg} style={styles.cowImageStyle} />
         </TouchableOpacity>
@@ -89,38 +90,16 @@ export default function CowListScreen() {
                 <Image source={Images.search} style={styles.searchIconStyle} />
             </View>
 
-            <View style={styles.tabContainer}>
-                {['Active', 'In Treatment', 'Deceased'].map((s) => {
-                    const isSelected = status === s;
-
-                    return (
-                        <TouchableOpacity
-                            key={s}
-                            onPress={() => setStatus(isSelected ? undefined : s)}
-                            style={[styles.tabButtonContainer,
-                            {
-                                backgroundColor: isSelected ? COLOR.PRIMARY_COLOR : COLOR.WHITE,
-                                borderColor: isSelected ? COLOR.WHITE : COLOR.PRIMARY_COLOR,
-                            }]}
-                        >
-                            <Text
-                                style={[styles.tabButtonStyle, {
-                                    color: isSelected ? COLOR.WHITE : COLOR.PRIMARY_COLOR,
-                                    fontWeight: isSelected ? '600' : '500'
-                                }]}
-                            >
-                                {s}
-                            </Text>
-                        </TouchableOpacity>
-                    );
-                })}
-            </View>
-
             <View style={styles.listHeaderContainer}>
                 <Text style={styles.titleTextStyle}>Cow List</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('CreateCow' as never)}>
-                    <Image source={Images.add} style={styles.addIconStyle} />
-                </TouchableOpacity>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                    <TouchableOpacity onPress={() => setFilterModalVisible(true)}>
+                        <Image source={Images.filter} style={styles.addIconStyle} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('CreateCow' as never)}>
+                        <Image source={Images.add} style={styles.addIconStyle} />
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <FlatList
@@ -128,7 +107,11 @@ export default function CowListScreen() {
                 keyExtractor={item => item.id}
                 renderItem={renderItem}
                 contentContainerStyle={styles.contentContainerStyle}
-            // ListEmptyComponent={<Text>No cows found</Text>}
+            />
+
+            <FilterModal
+                visible={filterModalVisible}
+                onClose={() => setFilterModalVisible(false)}
             />
         </View>
     );
@@ -188,7 +171,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: 20,
+        paddingVertical: 15,
     },
     titleTextStyle: {
         color: COLOR.PRIMARY_COLOR,
@@ -231,16 +214,16 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: COLOR.PRIMARY_COLOR,
     },
-    contentContainerStyle: { 
+    contentContainerStyle: {
         paddingBottom: 100,
     },
-    cowListContainer: { 
+    cowListContainer: {
         width: width / 2,
         justifyContent: 'center',
     },
-    cowImageStyle: { 
-        height: 150, 
-        width: width / 3, 
+    cowImageStyle: {
+        height: 150,
+        width: width / 3,
         alignItems: 'flex-end',
     }
 });

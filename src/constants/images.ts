@@ -11,5 +11,6 @@ const Images = {
     weight: require('./../assets/weight.png'),
     tag: require('./../assets/tag.png'),
     cow_bg: require('./../assets/cow_background.jpeg'),
+    filter: require('./../assets/filter.png'),
 }
 export default Images;

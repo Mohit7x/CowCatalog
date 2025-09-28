@@ -1,13 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Cow } from '../../utils/Utility';
+import { Cow, FilterState } from '../../utils/Utility';
 import uuid from 'react-native-uuid';
 
 interface CowState {
   cows: Cow[];
+  filters: FilterState;
 }
 
 const initialState: CowState = {
   cows: [],
+  filters: {
+    status: undefined,
+    pen: undefined
+  },
 };
 
 interface AddCowPayload {
@@ -41,11 +46,19 @@ const cowsSlice = createSlice({
         lastEventDate: undefined,
       };
       console.log('Adding cow', newCow);
-      
       state.cows.unshift(newCow);
+    },
+    setStatusFilter(state, action: PayloadAction<string | undefined>) {
+      state.filters.status = action.payload;
+    },
+    setPenFilter(state, action: PayloadAction<string | undefined>) {
+      state.filters.pen = action.payload;
+    },
+    clearFilters(state) {
+      state.filters = { status: undefined, pen: undefined };
     },
   },
 });
 
-export const { addCow } = cowsSlice.actions;
+export const { addCow, setStatusFilter, setPenFilter, clearFilters } = cowsSlice.actions;
 export default cowsSlice.reducer;

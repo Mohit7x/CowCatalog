@@ -10,6 +10,11 @@ export interface CowEvent {
   value?: number;
 }
 
+export interface FilterState {
+  status?: string;
+  pen?: string;
+}
+
 export interface Cow {
   id: string;
   earTag: string;
