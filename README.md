@@ -1,101 +1,47 @@
-<<<<<<< HEAD
-# CowCatalog
-=======
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Cow Catalog App
+- A simple offline-first mobile catalog for managing cows.
+- Users can browse cows, search/filter, view details, and add new cows — all stored locally (no backend required).
 
-# Getting Started
+## CA-01: Cow List
+-------> Displays a list of cows.
+- Each item shows:
+- Ear Tag (unique ID)
+- Sex (Male / Female)
+- Pen (location)
+- Status (Active / In Treatment / Deceased)
+- Last Recorded Event Date (latest from timeline)
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## CA-02: Search & Filters
+- Search cows by ear tag.
+- Filter cows by: Status (Active, In Treatment, Deceased)
+- Pen (area)
+- Filters and search query persist automatically (Redux Persist ensures they remain when returning to the list).
 
-## Step 1: Start Metro
+## CA-03: Create Cow
+- Button from Cow List to add a new cow.
+--> Form fields:
+- Ear Tag (required, unique)
+- Sex (required)
+- Pen (required)
+- Status (default: Active)
+- Weight (optional, must be positive)
+- Validations for uniqueness and required fields.
+- On save, data is stored locally and added instantly to the list.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## CA-04: Cow Detail
+-->Displays:
+- Ear Tag, Sex, Pen, Status, Weight
+- Basic timeline of recent events:
+- Weight Check
+- Treatment
+- Pen Movement
+- Death
+- Each event shows type, date, and optional note.
+- Timeline designed as a vertical list with color-coded dots.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
 
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
->>>>>>> f1d7362 (Initial commit)
+- Redux Toolkit → for global state management
+- Redux Persist → for offline local storage
+- React Navigation → for screen navigation
+- TypeScript → for safety & maintainability
+- Functional Components + Hooks → modern React Native best practices
