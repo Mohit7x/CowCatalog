@@ -60,11 +60,14 @@ export default function CowListScreen() {
 
     const renderItem = ({ item }: { item: any }) => (
         <TouchableOpacity onPress={() => showCowDetail(item)} style={styles.cowItemContainer}>
-            <ItemViewOption iconSource={Images.tag} label={'Ear Tag:'} title={item.earTag} />
-            <ItemViewOption iconSource={Images.sex} label={'Sex:'} title={item.sex} />
-            <ItemViewOption iconSource={Images.pen} label={'Pen:'} title={item.pen} />
-            <ItemViewOption iconSource={getStatusImage(item.status)} label={'Status:'} title={item.status} />
-            <ItemViewOption iconSource={Images.weight} label={'Weight:'} title={item.weight} />
+            <View style={styles.cowListContainer}>
+                <ItemViewOption iconSource={Images.tag} label={'Ear Tag:'} title={item.earTag} />
+                <ItemViewOption iconSource={Images.sex} label={'Sex:'} title={item.sex} />
+                <ItemViewOption iconSource={Images.pen} label={'Pen:'} title={item.pen} />
+                <ItemViewOption iconSource={getStatusImage(item.status)} label={'Status:'} title={item.status} />
+                <ItemViewOption iconSource={Images.weight} label={'Weight:'} title={item.weight} />
+            </View>
+            <Image source={Images.cow_bg} style={styles.cowImageStyle} />
         </TouchableOpacity>
     );
 
@@ -206,6 +209,7 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         shadowOffset: { width: 0, height: 0 },
         elevation: 6,
+        flexDirection: 'row',
     },
     itemContainer: {
         alignItems: 'center',
@@ -227,5 +231,16 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: COLOR.PRIMARY_COLOR,
     },
-    contentContainerStyle: { paddingBottom: 50 },
+    contentContainerStyle: { 
+        paddingBottom: 100,
+    },
+    cowListContainer: { 
+        width: width / 2,
+        justifyContent: 'center',
+    },
+    cowImageStyle: { 
+        height: 150, 
+        width: width / 3, 
+        alignItems: 'flex-end',
+    }
 });
