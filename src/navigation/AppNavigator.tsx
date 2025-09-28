@@ -17,9 +17,9 @@ export default function AppNavigator() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="CowList" component={CowListScreen} options={{ title: 'Cows', gestureEnabled: false }} />
-                <Stack.Screen name="CreateCow" component={CreateCowScreen} options={{ title: 'New Cow', gestureEnabled: false }} />
-                <Stack.Screen name="CowDetail" component={CowDetailScreen} options={{ title: 'Cow details', gestureEnabled: false }} />
+                <Stack.Screen name="CowList" component={CowListScreen} options={{ gestureEnabled: false }} />
+                <Stack.Screen name="CreateCow" component={CreateCowScreen} options={{ gestureEnabled: false }} />
+                <Stack.Screen name="CowDetail" component={CowDetailScreen} options={{ gestureEnabled: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
