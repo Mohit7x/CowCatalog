@@ -3,7 +3,7 @@
 - Users can browse cows, search/filter, view details, and add new cows — all stored locally (no backend required).
 
 ## CA-01: Cow List
--------> Displays a list of cows.
+- Displays a list of cows.
 - Each item shows:
 - Ear Tag (unique ID)
 - Sex (Male / Female)
